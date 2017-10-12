@@ -7,21 +7,30 @@ class Check():
 		self.guessed = 0
 		self.lengthOfCh = self.retOfLengthChain(chain)
 		self.chain =  list(chain[0])
+		self.is_space = None
+		self.howManySpace =0
 		for i in range(1,len(chain)):
-			self.chain.append(' _ ')
+			if chain[i] !=' ':
+				self.chain.append(' _ ')
+			else:
+				self.chain.append(' ')
+				self.is_space = 1
+				self.howManySpace+=1
+		if self.is_space == 1:
+			self.lengthOfCh = self.lengthOfCh-self.howManySpace
+			
 		self.fillAll(self.chain[0],chain)
 	def checkLiteral(self,l,literal):
 		pos = literal.find(l)
 		if literal.find(l)!= -1:
 			if str(self.chain).find(l)!=-1:
-				print("Letter you inputed was insert before")
+				print("Letter you inputed exist")
 				return
 			self.fillAll(l,chain)
 			print("Liter Found")
 			if self.lengthOfCh == self.guessed:
 				print("Congratulation! You win the game. Program will exit")
 				exit()
-			
 		else:
 			self.chance = self.chance -1
 			print("rest chance: "+str(self.chance))
@@ -44,7 +53,7 @@ class Check():
 		return len(chain)
 	def check_lose(self):
 		if self.chance == 0:
-	
+
 		
 			try:
 				print("End game! Your chance ends. Try it again ? Enter 1 to accept")
@@ -72,7 +81,7 @@ while(True):
 	chain = chain.lower()
 	
 	assert (len(chain)>0)-(len(chain)>10),"Your length is too long or equal 0\n"
-	print("Enter a short description of your words")
+	print("Enter a short description of your chain")
 	description = input();
 	from sys import platform
 	from os import system
@@ -81,6 +90,8 @@ while(True):
 		system('clear')
 	else:
 		system('cls')
+	system = None
+	platform =None
 	del platform
 	del system
 	x = Check(countChance(chain),chain)
